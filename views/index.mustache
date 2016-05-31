@@ -1,18 +1,10 @@
-<!doctype html>
-<html>
-<head>
-	<title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type='text/javascript'  src='/javascripts/bootstrap.min.js'></script>
-</head>
+{{>header}}
 <body>
-	<p>Welcome to {{ title }}!</p>
-	<ul>
-	{{#lusers}}
-		<li>{{name}} - {{so}}</li>
-	{{/lusers}}
-	</ul>
+	<h1>Welcome to {{ title }}!</h1>
+
+    <div id="container" >{{mess}}</div>
+
+
+<!-- {{>footer}} -->
 </body>
 </html>
