@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var express = require('express');
 var mustacheExpress = require('mustache-express');
+var session = require('express-session');
+var crypto = require('crypto');
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -32,8 +35,18 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('23msdzmflnlgnngngnhlnh'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: '23msdzmflnlgnngngnhlnh',
+  name: 'sid',
+  cookie: {maxAge: 6000000},
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
+
 
 app.use('/', routes);
 app.use('/users', users);
@@ -70,7 +83,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
 
