@@ -12,26 +12,7 @@ var lusers=[
 // });
 
 router.get('/', function(req, res, next) {
-	var sess = req.session;
-	if (sess.views) {
-		sess.views++;
-		console.log(sess);
-		res.setHeader('Content-Type', 'text/html;charset=UTF-8');
-		res.write('<p><strong>views:</strong> ' + sess.views + '</p>');
-		res.write('<p><strong>expires in:</strong> ' + sess.cookie.originalMaxAge / 1000 + 's (' + sess.cookie._expires + ')</p>');
-		res.end();
-	} else {
-		sess.views = 1;
-		res.end('welcome to the session demo, refresh! id = ' + req.session.id)
-	}
-});
-
-router.post('/ajaxservice/get', function(req, res, next) {
-	// console.log(req);
-	var data = [{ name: 'Peter', data: 'bla-bla'} , { name: 'Vasiliy', data: 'ps...'}];
-
-	res.send(JSON.stringify(data));
-	// res.send(req.body);
+	res.render('index', {title: 'expressChat'});
 });
 
 module.exports = router;

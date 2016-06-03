@@ -8,8 +8,6 @@ var login = 'admin';
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var sess = req.session;
-	console.log(req);
 	if (req.cookies.authId == crypto.createHash('md5').update(login).update(password).digest('hex')) {
 		res.render('login', { title: 'Приветствие', login: login, logged: true });
 	} else {
@@ -18,12 +16,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	var sess = req.session;
-	console.log(req);
 	var hash = crypto.createHash('md5')
 					.update(req.body.login)
 					.update(req.body.password)
 					.digest('hex');
+
+	var hash1 = crypto.createHash('md5')
+					.update(req.body.password)
+					.update(req.body.login)
+					.digest('hex');
+
+	console.log('hash: ' + hash);
+	console.log('hash1: ' + hash1);
 
 	if (hash == crypto.createHash('md5').update(login).update(password).digest('hex')) {
 		res.cookie('authId', hash, { maxAge: 900000, httpOnly: true });
