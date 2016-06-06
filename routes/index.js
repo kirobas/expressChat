@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-var lusers=[
-	{ name: 'Linus Torvalds', so: 'Linux' },
-	{ name: 'Bill Gates', so: 'Windows XP' }
-];
+var connection = require('../config/db');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -12,7 +8,17 @@ var lusers=[
 // });
 
 router.get('/', function(req, res, next) {
-	res.render('index', {title: 'expressChat'});
+
+	connection.query("SELECT * FROM user", function(err, rows, fields) {
+		if(err) throw err;
+
+		var lusers = [];
+		for (var i = 0; i < rows.length; i++) {
+			lusers.push(rows[i]);
+		}
+		res.render('index', {title: 'expressChat', lusers: lusers});
+	});
+	// connection.end();
 });
 
 module.exports = router;
